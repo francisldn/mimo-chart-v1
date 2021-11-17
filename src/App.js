@@ -6,6 +6,7 @@ import Coin from './Coin';
 function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
     axios
@@ -26,18 +27,37 @@ function App() {
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  }
   return (
     <div className='coin-app'>
       <div className='coin-search'>
         <h1 className='coin-text'>Search a currency</h1>
+        <div>
+          <form>
+            <input 
+            className='coin-address'
+            type='text' 
+            required value={address} 
+            onChange={handleAddressChange} 
+            placeholder="Enter token address"
+             />
+            <input type='submit' value="Add Token"/>
+          </form>
+        </div>
+        <br/>
+        <div>
         <form>
           <input
             className='coin-input'
             type='text'
+            
             onChange={handleChange}
             placeholder='Search'
           />
         </form>
+        </div>
       </div>
       {filteredCoins.map(coin => {
         return (
